@@ -1,0 +1,10 @@
+{
+    "HILS": {
+                "「夜」": {"Port":18,  "freq[Hz]":20000, "duty[%]":1},
+                "「昼」": {"Port":18,  "freq[Hz]":20000, "duty[%]":80}
+    },
+    "SILS": {
+                "「夜」": {"Port":18,  "freq[Hz]":20000, "duty[%]":1,  "hostname":"exte_c", "memname":"adc_data[ENV_LIGHT]"},
+                "「昼」": {"Port":18,  "freq[Hz]":20000, "duty[%]":80, "hostname":"exte_c", "memname":"adc_data[ENV_LIGHT]"}
+    }
+}

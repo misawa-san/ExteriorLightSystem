@@ -1,0 +1,10 @@
+{
+    "HILS": {
+                "駐車灯状態":    {"ADCチャネル":"CH0", "ADCビット数":10, "1LSB[mV] / LSBゲイン":49, "LSBゲイン":10, "AD最大電圧[mV]":5000, "ON閾値[mV]":2500},
+                "通過灯状態":    {"ADCチャネル":"CH1", "ADCビット数":10, "1LSB[mV] / LSBゲイン":49, "LSBゲイン":10, "AD最大電圧[mV]":5000, "ON閾値[mV]":2500}
+    },
+    "SILS": {
+                "駐車灯状態":    {"ADCチャネル":"CH0", "ADCビット数":10, "1LSB[mV] / LSBゲイン":49, "LSBゲイン":10, "AD最大電圧[mV]":5000, "ON閾値[mV]":2500, "hostname":"fsl_c", "memname":"pwm_data[PARKINGLIGHT]"},
+                "通過灯状態":    {"ADCチャネル":"CH1", "ADCビット数":10, "1LSB[mV] / LSBゲイン":49, "LSBゲイン":10, "AD最大電圧[mV]":5000, "ON閾値[mV]":2500, "hostname":"fsl_c", "memname":"pwm_data[PASSINGLIGHT]"}
+    }
+}

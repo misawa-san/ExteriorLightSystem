@@ -1,0 +1,14 @@
+{
+    "HILS": {
+        "「キー未挿入」":    {"Port":19, "freq[Hz]":20000, "duty[%]":5},
+        "「IG OFF」":        {"Port":19, "freq[Hz]":20000, "duty[%]":22},
+        "「IG ON」":         {"Port":19, "freq[Hz]":20000, "duty[%]":38},
+        "「エンジン始動」":  {"Port":19, "freq[Hz]":20000, "duty[%]":52}
+    },
+    "SILS": {
+        "「キー未挿入」":    {"Port":19, "freq[Hz]":20000, "duty[%]":3,  "hostname":"exte_c", "memname":"adc_data[IGV]"},
+        "「IG OFF」":        {"Port":19, "freq[Hz]":20000, "duty[%]":14, "hostname":"exte_c", "memname":"adc_data[IGV]"},
+        "「IG ON」":         {"Port":19, "freq[Hz]":20000, "duty[%]":25, "hostname":"exte_c", "memname":"adc_data[IGV]"},
+        "「エンジン始動」":  {"Port":19, "freq[Hz]":20000, "duty[%]":34, "hostname":"exte_c", "memname":"adc_data[IGV]"}
+    }
+}
