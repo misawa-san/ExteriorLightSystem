@@ -3,6 +3,7 @@
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 cd src
 rm -rf ./build/*
+rm -rf ./coverage*
 rm -rf ./install
 rm -rf ./log
 

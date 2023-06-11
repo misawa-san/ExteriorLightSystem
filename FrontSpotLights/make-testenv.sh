@@ -2,6 +2,7 @@
 
 sudo chmod -R 777 .
 rm -rf ./src/build
+rm -rf ./src/coverage*
 rm -rf ./src/install
 rm -rf ./src/log
 rm -rf ./src/app_server2.log
