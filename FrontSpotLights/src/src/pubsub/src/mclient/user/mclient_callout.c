@@ -7,7 +7,7 @@ extern void FrontSpotLightsMain(void);    /* メイン処理 */
 
 void mclient_initcallout(void)
 {
-    printf("my main init function call\n");
+    //printf("my main init function call\n");
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
     FrontSpotLightsInit();
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
@@ -16,7 +16,7 @@ void mclient_initcallout(void)
 
 void mclient_callout(void)
 {
-    printf("my main function call\n");
+    //printf("my main function call\n");
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
     FrontSpotLightsMain();
 /* ------------------ USER CUSTOIMIZE ----------------------------*/

@@ -2,6 +2,12 @@
 
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 cd src
+rm -rf ./build/pubsub/CMakeFiles/ros_task.dir/src/app/*
+rm -rf app_server2.log
+rm -rf publog.txt
+rm -rf server.txt
+
+colcon build --cmake-clean-cache
 colcon build --symlink-install
 source ./install/local_setup.bash
 ros2 run pubsub ros_task > publog.txt &
@@ -14,10 +20,16 @@ python3 -u ../server2.py > server.txt &
 wait $ros_pid
 
 # create coverage report
-mkdir coverage
+basename="coverage_"
+dirname=`date "+%Y%m%d-%H%M%S"`
+cvrdir="$basename$dirname"
+mkdir $cvrdir
 cd build/pubsub/CMakeFiles/ros_task.dir/src/app
-gcov *.gcda > ../../../../../../coverage/coverage.txt
+gcov *.gcda > ../../../../../../$cvrdir/coverage.txt
 
 cd ../../../../../../
-gcovr  --filter src/pubsub/src/app . --html --html-details -o ./coverage/coverage.html
-cp /build/pubsub/CMakeFiles/ros_task.dir/src/app/* ./coverage
+gcovr  --filter src/pubsub/src/app . --html --html-details -o ./$cvrdir/coverage.html
+cp ./build/pubsub/CMakeFiles/ros_task.dir/src/app/* ./$cvrdir
+cp ./publog.txt ./$cvrdir/simout.csv
+cp ../view-vcd.sh ./$cvrdir
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE signals SYSTEM "vcdMaker.dtd">
+<signals>
+
+<real>
+    <line>([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?</line>
+    <timestamp>dec(1)</timestamp>
+    <name>txt(2)</name>
+    <value>flt(3)</value>
+</real>
+
+</signals >

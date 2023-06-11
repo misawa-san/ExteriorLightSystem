@@ -79,7 +79,7 @@ void RosTask::_topic_callback(const custom_msg::msg::CustomMsg::SharedPtr msg){
         payload[i] = msg->payload[i];
     }
 
-    RCLCPP_INFO(this->get_logger(), "I heard: %d %d %d", msg->payload[0], msg->payload[1], msg->payload[2]);
+    //RCLCPP_INFO(this->get_logger(), "I heard: %d %d %d", msg->payload[0], msg->payload[1], msg->payload[2]);
 
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
 }
@@ -97,7 +97,7 @@ void RosTask::publish_message()
 {
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
 
-    RCLCPP_INFO(this->get_logger(), "call main");
+    //RCLCPP_INFO(this->get_logger(), "call main");
 
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
 }
