@@ -1,7 +1,9 @@
 #!/bin/sh
 
 sudo chmod -R 777 .
-rm -rf ./src/build/
+rm -rf ./src/build
+rm -rf ./src/install
+rm -rf ./src/log
 rm -rf ./src/app_server2.log
 rm -rf ./src/publog.txt
 rm -rf ./src/server.txt

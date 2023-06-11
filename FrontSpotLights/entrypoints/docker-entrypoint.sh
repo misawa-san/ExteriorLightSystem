@@ -2,7 +2,10 @@
 
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 cd src
-rm -rf ./build/pubsub/CMakeFiles/ros_task.dir/src/app/*
+rm -rf ./build/*
+rm -rf ./install
+rm -rf ./log
+
 rm -rf app_server2.log
 rm -rf publog.txt
 rm -rf server.txt
