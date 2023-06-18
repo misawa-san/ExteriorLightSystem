@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(pubsub)
+add_subdirectory(./src/app)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -26,13 +27,11 @@ find_package(custom_msg REQUIRED)
 
 include_directories(src/app src/mclient/core src/mclient/user src/ros2 src/stub)
 
-file(GLOB APPS    src/app/*.c     src/app/*.h)
 file(GLOB MCLIENT src/mclient/core/*.c src/mclient/user/*.c src/mclient/core/*.h src/mclient/user/*.h)
 file(GLOB ROS2    src/ros2/*.cpp  src/ros2/*.hpp)
 file(GLOB STUB    src/stub/*.c    src/stub/*.h)
 
 add_executable(ros_task
-  ${APPS}
   ${MCLIENT}  
   ${ROS2}
   ${STUB}
@@ -44,6 +43,8 @@ target_compile_options(ros_task PUBLIC -coverage -g)
 # Linker Flags
 set(ld_flags "-coverage")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${ld_flags}")
+
+target_link_libraries(ros_task libapp)
 
 ament_target_dependencies(ros_task
   rcl
