@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.5)
 project(targetapp C)
 
-add_library(libapp STATIC ./FrontSpotLights.c)
-target_include_directories(libapp PUBLIC  ../stub)
+add_library(libapp STATIC
+./FrontSpotLights.c
+)
+target_include_directories(libapp PUBLIC
+../stub
+)
 target_compile_options(libapp PRIVATE -save-temps=obj -coverage -g)
+target_compile_definitions(libapp PRIVATE
+)
 
 set_target_properties(libapp
     PROPERTIES
