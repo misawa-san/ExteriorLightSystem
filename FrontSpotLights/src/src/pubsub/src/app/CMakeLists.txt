@@ -7,7 +7,8 @@ add_library(libapp STATIC
 target_include_directories(libapp PUBLIC
 ../stub
 )
-target_compile_options(libapp PRIVATE -save-temps=obj -coverage -g)
+target_compile_options(libapp PRIVATE -save-temps=obj -coverage -g -fsanitize=address -fno-omit-frame-pointer)
+
 target_compile_definitions(libapp PRIVATE
 )
 

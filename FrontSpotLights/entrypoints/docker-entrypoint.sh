@@ -3,18 +3,21 @@
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 cd src
 rm -rf ./build/*
-rm -rf ./coverage*
+rm -rf ./coverage
 rm -rf ./install
 rm -rf ./log
 
 rm -rf app_server2.log
 rm -rf publog.txt
 rm -rf server.txt
+rm -rf sanitizerlog.txt
 
 colcon build --cmake-clean-cache
-colcon build --symlink-install
+export ASAN_OPTIONS="verbosity=2"
+colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
+
 source ./install/local_setup.bash
-ros2 run pubsub ros_task > publog.txt &
+ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
 ros_pid=$!
 
 # launch server

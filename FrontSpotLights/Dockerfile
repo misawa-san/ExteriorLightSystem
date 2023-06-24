@@ -19,6 +19,8 @@ RUN apt-get update && \
     apt-get install -y gcc && \
     apt-get install -y g++ && \
     apt-get install -y cmake && \
+    apt-get install -y clang && \
+    apt-get install -y llvm && \
     sudo apt-get install -y python3-pip && \
     pip3 install gcovr && \
     pip3 install -U argcomplete && \
