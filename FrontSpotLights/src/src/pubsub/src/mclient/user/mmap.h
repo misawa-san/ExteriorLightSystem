@@ -9,6 +9,7 @@
 struct Val
 {
 	unsigned long addr;
+	unsigned char size;
 	unsigned long mask;
 	char name[64];
 };

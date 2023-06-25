@@ -224,32 +224,52 @@ static unsigned long read_val(unsigned long idx, int *ret)
 
 static void write_val(unsigned long idx, unsigned long write_val, int *ret, unsigned long *read_back)
 {
-    unsigned long *p;
+    unsigned char  *p1;
+    unsigned short *p2;
+    unsigned int  *p4;
+
     unsigned long lp;
+    unsigned char size;
     unsigned long mask;
     unsigned long read_val;
 
     if( idx < (sizeof(val_list)/sizeof(val_list[0])) )
     {
         lp   = val_list[idx].addr;
+        size = val_list[idx].size;
         mask = val_list[idx].mask;
         //printf("idx:%lx adder:%lx mask:%lx \n", idx, lp, mask);
 
-        p=(unsigned long*)lp;
+        switch(size)
+        {
+            case 1: /* 1byte */
+                p1=(unsigned char*)lp;
+                read_val = (*p1)&( ~( (0xFF)&mask ) );
+                write_val = ((*p1)&( (0xFF)&mask )) | ( ( (0xFF)&write_val )&(~( (0xFF)&mask ) ));
+                *p1 = (unsigned char)write_val;
+                read_val   = (unsigned char)( (*p1)&( ~( (0xFF)&mask ) ) );
+                *read_back = read_val;
+                break;
 
-        //printf("*p: %lx\n", *p);
+            case 2: /* 2byte */
+                p2=(unsigned short*)lp;
+                read_val = (*p2)&( ~( (0xFFFF)&mask ) );
+                write_val = ((*p2)&( (0xFFFF)&mask )) | ( ( (0xFFFF)&write_val )&(~( (0xFFFF)&mask ) ));
+                *p2 = (unsigned short)write_val;
+                read_val   = (unsigned short)( (*p2)&( ~( (0xFFFF)&mask ) ) );
+                *read_back = read_val;
+                break;
 
-        read_val = (*p)&(~mask);
-        //printf("read val: %lx\n", read_val);
-
-        write_val = ((*p)&(mask)) | (write_val&(~mask));
-        //printf("write val: %lx\n", write_val);
-
-        *p = write_val;
-
-        read_val   = (*p)&(~mask);
-        *read_back = read_val;
-        //printf("read val: %lx\n", read_val);
+            case 4: /* 4byte */
+            default:
+                p4=(unsigned int*)lp;
+                read_val = (*p4)&( ~( (0xFFFFFFFF)&mask ) );
+                write_val = ((*p4)&( (0xFFFFFFFF)&mask )) | ( ( (0xFFFFFFFF)&write_val )&(~( (0xFFFFFFFF)&mask ) ));
+                *p4 = (unsigned int)write_val;
+                read_val   = (unsigned int)( (*p4)&( ~( (0xFFFFFFFF)&mask ) ) );
+                *read_back = read_val;
+                break;
+        }
 
         *ret = 0;
         fflush(stdout);
