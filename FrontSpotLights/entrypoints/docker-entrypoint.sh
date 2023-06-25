@@ -38,5 +38,6 @@ cd ../../../../../../
 gcovr  --filter src/pubsub/src/app . --html --html-details -o ./$cvrdir/coverage.html
 cp ./build/pubsub/src/app/CMakeFiles/libapp.dir/* ./$cvrdir
 cp ./publog.txt ./$cvrdir/simout.csv
+cp ./sanitizerlog.txt ./$cvrdir/
 cp ../view-vcd.sh ./$cvrdir
 
