@@ -15,6 +15,7 @@ rm -rf sanitizerlog.txt
 colcon build --cmake-clean-cache
 export ASAN_OPTIONS="verbosity=2"
 colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
+colcon build --symlink-install
 
 source ./install/local_setup.bash
 ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
