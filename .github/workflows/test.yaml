@@ -12,5 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Checkout And Build And Test
-        run: docker-compose -f docker-compose.yml up -d --build 
-
+        run: |
+          chmod -R 777 .
+          docker-compose -f docker-compose.yml up -d --build
