@@ -1,0 +1,16 @@
+name: test
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Checkout And Build And Test
+        run: docker-compose -f docker-compose.yml up -d --build 
+
