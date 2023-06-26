@@ -15,3 +15,8 @@ jobs:
         run: |
           chmod -R 777 .
           docker-compose -f docker-compose.yml up -d --build
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: FrontSpotLights/src/coverage*
