@@ -8,8 +8,7 @@ RUN apt-get update \
     && apt-get install -y locales  \
     && dpkg-reconfigure locales \
     && locale-gen ja_JP ja_JP.UTF-8 \
-    && update-locale LC_ALL=ja_JP.UTF-8 LANG=ja_JP.UTF-8 \
-    && echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    && update-locale LC_ALL=ja_JP.UTF-8 LANG=ja_JP.UTF-8
 ENV LC_ALL   ja_JP.UTF-8
 ENV LANG     ja_JP.UTF-8
 ENV LANGUAGE ja_JP.UTF-8
