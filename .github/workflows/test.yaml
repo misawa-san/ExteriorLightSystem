@@ -13,8 +13,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Checkout And Build And Test
         run: |
-          chmod -R 777 .
-          docker-compose -f docker-compose.yml up -d --build
+          sudo chmod -R 777 .
+          sudo docker-compose -f docker-compose.yml up -d --build
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
