@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "/opt/ros/$ROS_DISTRO/setup.bash" > setup.txt
+source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
 cd src
 rm -rf ./build/*
 rm -rf ./coverage
