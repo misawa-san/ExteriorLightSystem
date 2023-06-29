@@ -1,7 +1,8 @@
 #!/bin/bash
 
+echo $ROS_DISTRO > echo.txt
 source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
-cd src
+cd ./src
 touch hoge1
 rm -rf ./build/*
 rm -rf ./coverage
