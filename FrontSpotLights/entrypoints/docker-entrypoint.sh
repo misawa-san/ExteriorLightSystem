@@ -12,9 +12,9 @@ rm -rf publog.txt
 rm -rf server.txt
 rm -rf sanitizerlog.txt
 
-colcon build --cmake-clean-cache
+colcon build --cmake-clean-cache > clear.txt
 export ASAN_OPTIONS="verbosity=2"
-colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
+colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer" > build.txt
 colcon build --symlink-install
 
 source ./install/local_setup.bash
