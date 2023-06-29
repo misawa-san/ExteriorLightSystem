@@ -2,20 +2,24 @@
 
 source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
 cd src
+touch hoge1
 rm -rf ./build/*
 rm -rf ./coverage
 rm -rf ./install
 rm -rf ./log
-
+touch hoge2
 rm -rf app_server2.log
 rm -rf publog.txt
 rm -rf server.txt
 rm -rf sanitizerlog.txt
-
+touch hoge3
 colcon build --cmake-clean-cache > clear.txt
+touch hoge4
 export ASAN_OPTIONS="verbosity=2"
 colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer" > build.txt
+touch hoge5
 colcon build --symlink-install
+touch hoge6
 
 source ./install/local_setup.bash
 ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
