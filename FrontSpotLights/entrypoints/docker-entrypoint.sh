@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo $ROS_DISTRO > echo.txt
+ls -l /opt/ros/$ROS_DISTRO > ls.txt
 source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
 cd ./src
 touch hoge1
