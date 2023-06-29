@@ -2,7 +2,11 @@
 
 echo $ROS_DISTRO > echo.txt
 ls -l /opt/ros/$ROS_DISTRO > ls.txt
+pwd > pwd.txt
+whoami > whoami.txt
+touch hoge00-1
 source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
+touch hoge00-2
 cd ./src
 touch hoge1
 rm -rf ./build/*
