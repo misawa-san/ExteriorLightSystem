@@ -297,7 +297,7 @@ static void write_val(unsigned long idx, unsigned long write_val, int *ret, unsi
                 
             case 8: /* 8byte */
             default:
-                p8(unsigned long*)lp;
+                p8=(unsigned long*)lp;
                 read_val = (*p8)&( ~( (0xFFFFFFFFFFFFFFFF)&mask ) );
                 write_val = ((*p8)&( (0xFFFFFFFFFFFFFFFF)&mask )) | ( ( (0xFFFFFFFFFFFFFFFF)&write_val )&(~( (0xFFFFFFFFFFFFFFFF)&mask ) ));
                 *p8 = (unsigned int)write_val;
