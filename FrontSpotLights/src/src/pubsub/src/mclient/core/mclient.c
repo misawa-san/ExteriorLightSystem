@@ -130,15 +130,17 @@ int mclient_main(void)
             {
                 //printf( "Call the MainFunction\n" );
                 fflush(stdout);
-                mclient_callout();
                 
                 printf( "\n%f", res_ecu_time);
                 for( int i=2; i<(sizeof(val_list)/sizeof(val_list[0])); i++ )
                 {
                     long temp;
                     temp = read_val(i, &ret);
-                    printf( ",%d", temp);
+                    printf( ",%ld", temp);
                 }
+            fflush(stdout);
+                
+                mclient_callout();
 
                 res_ecu_time += MAIN_CYCLE;
                 ShmPTR->Memory.res_ecu_time = res_ecu_time;
@@ -198,7 +200,8 @@ static unsigned long read_val(unsigned long idx, int *ret)
     unsigned char  *p1;
     unsigned short *p2;
     unsigned int   *p4;
-
+    unsigned long  *p8;
+    
     unsigned long lp;
     unsigned char size;
     unsigned long mask;
@@ -223,9 +226,14 @@ static unsigned long read_val(unsigned long idx, int *ret)
                 break;
                 
             case 4: /* 4byte */
-            default:
                 p4=(unsigned int*)lp;
                 read_val   = (unsigned int)( (*p4)&( ~( (0xFFFFFFFF)&mask ) ) );
+                break;
+                
+            case 8: /* 8byte */
+            default:
+                p8=(unsigned long*)lp;
+                read_val   = (unsigned long)( (*p8)&( ~( (0xFFFFFFFFFFFFFFFF)&mask ) ) );
                 break;
         }
         
@@ -244,6 +252,7 @@ static void write_val(unsigned long idx, unsigned long write_val, int *ret, unsi
     unsigned char  *p1;
     unsigned short *p2;
     unsigned int   *p4;
+    unsigned long  *p8;
 
     unsigned long lp;
     unsigned char size;
@@ -278,12 +287,21 @@ static void write_val(unsigned long idx, unsigned long write_val, int *ret, unsi
                 break;
 
             case 4: /* 4byte */
-            default:
                 p4=(unsigned int*)lp;
                 read_val = (*p4)&( ~( (0xFFFFFFFF)&mask ) );
                 write_val = ((*p4)&( (0xFFFFFFFF)&mask )) | ( ( (0xFFFFFFFF)&write_val )&(~( (0xFFFFFFFF)&mask ) ));
                 *p4 = (unsigned int)write_val;
                 read_val   = (unsigned int)( (*p4)&( ~( (0xFFFFFFFF)&mask ) ) );
+                *read_back = read_val;
+                break;
+                
+            case 8: /* 8byte */
+            default:
+                p8(unsigned long*)lp;
+                read_val = (*p8)&( ~( (0xFFFFFFFFFFFFFFFF)&mask ) );
+                write_val = ((*p8)&( (0xFFFFFFFFFFFFFFFF)&mask )) | ( ( (0xFFFFFFFFFFFFFFFF)&write_val )&(~( (0xFFFFFFFFFFFFFFFF)&mask ) ));
+                *p8 = (unsigned int)write_val;
+                read_val   = (unsigned long)( (*p8)&( ~( (0xFFFFFFFFFFFFFFFF)&mask ) ) );
                 *read_back = read_val;
                 break;
         }
@@ -295,3 +313,4 @@ static void write_val(unsigned long idx, unsigned long write_val, int *ret, unsi
         *ret = -1;
     }
 }
+
