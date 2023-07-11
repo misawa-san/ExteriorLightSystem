@@ -131,6 +131,8 @@ int mclient_main(void)
                 //printf( "Call the MainFunction\n" );
                 fflush(stdout);
                 
+                mclient_callout();
+                
                 printf( "\n%f", res_ecu_time);
                 for( int i=2; i<(sizeof(val_list)/sizeof(val_list[0])); i++ )
                 {
@@ -138,10 +140,8 @@ int mclient_main(void)
                     temp = read_val(i, &ret);
                     printf( ",%ld", temp);
                 }
-            fflush(stdout);
+                fflush(stdout);
                 
-                mclient_callout();
-
                 res_ecu_time += MAIN_CYCLE;
                 ShmPTR->Memory.res_ecu_time = res_ecu_time;
                 //printf( "req time:%f ecu time:%f \n", curr_req_time, res_ecu_time);

@@ -1,31 +1,22 @@
 #!/bin/bash
 
-echo $ROS_DISTRO > echo.txt
-ls -l /opt/ros/$ROS_DISTRO > ls.txt
-pwd > pwd.txt
-whoami > whoami.txt
-touch hoge00-1
 source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
-touch hoge00-2
 cd ./src
-touch hoge1
 rm -rf ./build/*
 rm -rf ./coverage
 rm -rf ./install
 rm -rf ./log
-touch hoge2
+
 rm -rf app_server2.log
 rm -rf publog.txt
 rm -rf server.txt
 rm -rf sanitizerlog.txt
-touch hoge3
+
 colcon build --cmake-clean-cache > clear.txt
-touch hoge4
+
 export ASAN_OPTIONS="verbosity=2"
 colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer" > build.txt
-touch hoge5
 colcon build --symlink-install
-touch hoge6
 
 source ./install/local_setup.bash
 ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
@@ -43,11 +34,14 @@ dirname=`date "+%Y%m%d-%H%M%S"`
 cvrdir="$basename$dirname"
 mkdir $cvrdir
 cd build/pubsub/src/app/CMakeFiles/libapp.dir
-gcov *.gcda > ../../../../../../$cvrdir/coverage.txt
+lcov -d . -c --rc lcov_branch_coverage=1 -o tmp.info
+genhtml tmp.info --branch-coverage -o .
+
+#gcov -bc *.gcda > ../../../../../../$cvrdir/coverage.txt
 
 cd ../../../../../../
-gcovr  --filter src/pubsub/src/app . --html --html-details -o ./$cvrdir/coverage.html
-cp ./build/pubsub/src/app/CMakeFiles/libapp.dir/* ./$cvrdir
+# gcovr  --filter src/pubsub/src/app . --html --html-details -o ./$cvrdir/coverage.html
+cp -R ./build/pubsub/src/app/CMakeFiles/libapp.dir/* ./$cvrdir
 cp ./publog.txt ./$cvrdir/simout.csv
 cp ./sanitizerlog.txt ./$cvrdir/
 cp ../view-vcd.sh ./$cvrdir
