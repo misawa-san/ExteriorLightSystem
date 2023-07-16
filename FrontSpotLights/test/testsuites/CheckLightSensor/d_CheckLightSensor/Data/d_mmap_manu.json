@@ -1,0 +1,38 @@
+{
+    "exte_c": {
+        "url": "http://exte_c:80/v1/ExteriorLightSystem?",
+        "mmap": {
+            "fin":                       {"mem_idx":"0",  "mask":"0xFFFFFFFF00000000"},
+            "res_ecu_time":              {"mem_idx":"1",  "mask":"0x0000000000000000"},
+            "adc_data[ENV_LIGHT]":       {"mem_idx":"2",  "mask":"0xFFFFFFFFFFFF0000"},
+            "adc_data[IGV]":             {"mem_idx":"3",  "mask":"0xFFFFFFFFFFFF0000"},
+            "payload[0]":                {"mem_idx":"4",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[1]":                {"mem_idx":"5",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[2]":                {"mem_idx":"6",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[3]":                {"mem_idx":"7",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[4]":                {"mem_idx":"8",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[5]":                {"mem_idx":"9",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[6]":                {"mem_idx":"10", "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[7]":                {"mem_idx":"11", "mask":"0xFFFFFFFFFFFFFF00"},
+            "calc_v_env_light":          {"mem_idx":"12", "mask":"0xFFFFFFFFFFFF0000"},
+            "calc_v_igv":                {"mem_idx":"13", "mask":"0xFFFFFFFFFFFF0000"}
+        }
+    },
+    "fsl_c": {
+        "url": "http://127.0.0.3:80/v1/FrontSpotLight?",
+        "mmap": {
+            "fin":                       {"mem_idx":"0",  "mask":"0xFFFFFFFF00000000"},
+            "res_ecu_time":              {"mem_idx":"1",  "mask":"0x0000000000000000"},
+            "pwm_data[PARKINGLIGHT]":    {"mem_idx":"2",  "mask":"0xFFFFFFFF00000000"},
+            "pwm_data[PASSINGLIGHT]":    {"mem_idx":"3",  "mask":"0xFFFFFFFF00000000"},
+            "payload[0]":                {"mem_idx":"4",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[1]":                {"mem_idx":"5",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[2]":                {"mem_idx":"6",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[3]":                {"mem_idx":"7",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[4]":                {"mem_idx":"8",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[5]":                {"mem_idx":"9",  "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[6]":                {"mem_idx":"10", "mask":"0xFFFFFFFFFFFFFF00"},
+            "payload[7]":                {"mem_idx":"11", "mask":"0xFFFFFFFFFFFFFF00"}
+        }
+    }
+}

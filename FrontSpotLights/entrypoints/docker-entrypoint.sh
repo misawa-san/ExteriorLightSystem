@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "/opt/ros/$ROS_DISTRO/setup.bash" 2> setup.txt
+source "/opt/ros/$ROS_DISTRO/setup.bash"
 cd ./src
 rm -rf ./build/*
 rm -rf ./coverage
@@ -15,11 +15,12 @@ rm -rf sanitizerlog.txt
 colcon build --cmake-clean-cache > clear.txt
 
 export ASAN_OPTIONS="verbosity=2"
-colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer" > build.txt
-colcon build --symlink-install
+colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 source ./install/local_setup.bash
-ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
+#ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
+ros2 run --prefix 'gdbserver localhost:3000' pubsub ros_task > publog.txt 2> sanitizerlog.txt &
 ros_pid=$!
 
 # launch server
