@@ -23,7 +23,8 @@ RUN apt-get update && \
     apt-get install -y llvm && \
     apt-get install -y lcov && \
     apt-get install -y gdb && \
-    apt-get install iputils-ping net-tools && \
+    apt-get install -y iputils-ping && \
+    apt-get install -y net-tools && \
     sudo apt-get install -y python3-pip && \
     pip3 install gcovr && \
     pip3 install -U argcomplete && \
