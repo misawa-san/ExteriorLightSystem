@@ -22,6 +22,7 @@ RUN apt-get update && \
     apt-get install -y clang && \
     apt-get install -y llvm && \
     apt-get install -y lcov && \
+    apt-get install -y gdb && \
     sudo apt-get install -y python3-pip && \
     pip3 install gcovr && \
     pip3 install -U argcomplete && \
