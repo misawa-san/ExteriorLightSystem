@@ -12,8 +12,10 @@ rm -rf publog.txt
 rm -rf server.txt
 rm -rf sanitizerlog.txt
 
-colcon build --cmake-clean-cache
+# launch server
+python3 -u ../server2.py > server.txt &
 
+colcon build --cmake-clean-cache
 export ASAN_OPTIONS="verbosity=2"
 colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -22,9 +24,6 @@ source ./install/local_setup.bash
 #ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
 ros2 run --prefix 'gdbserver localhost:3000' pubsub ros_task > publog.txt 2> sanitizerlog.txt &
 ros_pid=$!
-
-# launch server
-python3 -u ../server2.py > server.txt &
 
 # wait until ros task is finished
 wait $ros_pid
