@@ -1,5 +1,6 @@
 #!/bin/bash
 
+touch hello.txt
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 cd ./src
 rm -rf ./build/*
