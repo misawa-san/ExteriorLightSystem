@@ -14,9 +14,9 @@ jobs:
       - name: Checkout And Build And Test
         run: |
           sudo chmod -R 777 .
-          sudo docker-compose -f docker-compose.yml up -d --build
+          docker-compose -f docker-compose.yml up -d --build
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
-          path: /usr/ecu_src
+          path: ./
