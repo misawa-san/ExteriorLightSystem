@@ -1,7 +1,7 @@
 #!/bin/bash
 
-touch hello.txt
-source "/opt/ros/$ROS_DISTRO/setup.bash"
+source "/opt/ros/$ROS_DISTRO/setup.bash" > hello2.txt
+
 cd ./src
 rm -rf ./build/*
 rm -rf ./coverage
