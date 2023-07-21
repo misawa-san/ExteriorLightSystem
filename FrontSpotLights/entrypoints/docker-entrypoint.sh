@@ -15,6 +15,7 @@ rm -rf sanitizerlog.txt
 
 # launch server
 python3 -u ../server2.py > server.txt &
+cat ../server2.py
 
 colcon build --cmake-clean-cache
 export ASAN_OPTIONS="verbosity=2"
@@ -22,8 +23,8 @@ colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 source ./install/local_setup.bash
-#ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
-ros2 run --prefix 'gdbserver localhost:3000' pubsub ros_task > publog.txt 2> sanitizerlog.txt &
+ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
+#ros2 run --prefix 'gdbserver localhost:3000' pubsub ros_task > publog.txt 2> sanitizerlog.txt &
 ros_pid=$!
 
 # wait until ros task is finished
