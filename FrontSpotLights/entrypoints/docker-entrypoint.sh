@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "/opt/ros/$ROS_DISTRO/setup.bash" > hello2.txt
+source "/opt/ros/$ROS_DISTRO/setup.bash"
 
 cd ./src
 rm -rf ./build/*
@@ -20,7 +20,8 @@ cat ../server2.py
 colcon build --cmake-clean-cache
 export ASAN_OPTIONS="verbosity=2"
 colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
+#colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
+colcon build --symlink-install
 
 source ./install/local_setup.bash
 ros2 run pubsub ros_task > publog.txt 2> sanitizerlog.txt &
