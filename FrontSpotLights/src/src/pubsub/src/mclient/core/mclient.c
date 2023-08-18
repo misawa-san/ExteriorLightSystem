@@ -132,16 +132,16 @@ int mclient_main(void)
                 fflush(stdout);
                 
                 mclient_callout();
-                
-                printf( "\n%f", res_ecu_time);
-                for( int i=2; i<(sizeof(val_list)/sizeof(val_list[0])); i++ )
+
+                printf("\n%f", res_ecu_time);
+                for (int i = 2; i < (sizeof(val_list) / sizeof(val_list[0])); i++)
                 {
                     long temp;
                     temp = read_val(i, &ret);
-                    printf( ",%ld", temp);
+                    printf(",%ld", temp);
                 }
                 fflush(stdout);
-                
+
                 res_ecu_time += MAIN_CYCLE;
                 ShmPTR->Memory.res_ecu_time = res_ecu_time;
                 //printf( "req time:%f ecu time:%f \n", curr_req_time, res_ecu_time);
@@ -161,6 +161,16 @@ int mclient_main(void)
             //printf("WRITE Request addr %ld \n", mem_idx);
             fflush(stdout);
             write_val(mem_idx, w_val, &ret, &res_r_val);
+
+            printf("\n%f", res_ecu_time);
+            for (int i = 2; i < (sizeof(val_list) / sizeof(val_list[0])); i++)
+            {
+                long temp;
+                temp = read_val(i, &ret);
+                printf(",%ld", temp);
+            }
+            fflush(stdout);
+
             ShmPTR->Memory.res_ecu_time = res_ecu_time;
             ShmPTR->Memory.res_r_val    = res_r_val;
         }
