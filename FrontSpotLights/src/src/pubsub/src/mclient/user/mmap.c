@@ -15,8 +15,8 @@ struct Val val_list[VAL_LIST_NUM] =
 /* ------------------------------- USER CUSTOIMIZE ---------------------------------------------------------*/
     { (unsigned long)(&fin),                           4,                 0xFFFFFFFF00000000,        "fin"                          },    /* 0:  fin                    */
     { (unsigned long)(&res_ecu_time),                  8,                 0x0000000000000000,        "res_ecu_time"                 },    /* 1:  res_ecu_time           */
-    { (unsigned long)(&pwm_data[PARKINGLIGHT]),        1,                 0xFFFFFFFF00000000,        "pwm_data.PARKINGLIGHT"        },    /* 2:  pwm_data[PARKINGLIGHT] */
-    { (unsigned long)(&pwm_data[PASSINGLIGHT]),        1,                 0xFFFFFFFF00000000,        "pwm_data.PASSINGLIGHT"        },    /* 3:  pwm_data[PASSINGLIGHT] */
+    { (unsigned long)(&pwm_data[PARKINGLIGHT]),        1,                 0xFFFFFFFF00000000,        "uint8_pwm_data.PARKINGLIGHT"  },    /* 2:  pwm_data[PARKINGLIGHT] */
+    { (unsigned long)(&pwm_data[PASSINGLIGHT]),        1,                 0xFFFFFFFF00000000,        "sint16_pwm_data.PASSINGLIGHT" },    /* 3:  pwm_data[PASSINGLIGHT] */
     { (unsigned long)(&payload[0]),                    1,                 0xFFFFFFFFFFFFFF00,        "payload.0"                    },    /* 4:  payload[0]             */
     { (unsigned long)(&payload[1]),                    1,                 0xFFFFFFFFFFFFFF00,        "payload.1"                    },    /* 5:  payload[1]             */
     { (unsigned long)(&payload[2]),                    1,                 0xFFFFFFFFFFFFFF00,        "payload.2"                    },    /* 6:  payload[2]             */

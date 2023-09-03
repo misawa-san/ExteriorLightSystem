@@ -32,7 +32,28 @@ def conv_csv(in_name, out_name):
                     val = '0'
                 else:
                     val = col
-                writer.writerow([f'{float(row[0])*1000:.0f}',header[index],val,'f'])
+
+                if isinstance(row[0], float):
+                    writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'f'])
+                else:
+                    if   "uint8" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'8'])
+                    elif "sint8" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'8'])
+                    elif "uint16" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'16'])
+                    elif "sint16" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'16'])
+                    elif "uint32" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'32'])
+                    elif "sint32" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'32'])
+                    elif "uint64" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'64'])                   
+                    elif "sint64" in header[index]:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'64']) 
+                    else:
+                        writer.writerow([f'{float(row[0])*1000000:.0f}',header[index],val,'f'])
     finally:
         in_file.close
         out_file.close

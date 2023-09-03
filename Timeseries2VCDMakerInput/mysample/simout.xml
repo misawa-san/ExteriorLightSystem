@@ -2,6 +2,14 @@
 <!DOCTYPE signals SYSTEM "vcdMaker.dtd">
 <signals>
 
+<vector>
+    <line>([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+)( +.*)?</line>
+    <timestamp>dec(1)</timestamp>
+    <name>txt(2)</name>
+    <value>dec(3)</value>
+    <size>dec(4)</size>
+</vector>
+
 <real>
     <line>([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?</line>
     <timestamp>dec(1)</timestamp>
@@ -9,4 +17,11 @@
     <value>flt(3)</value>
 </real>
 
+<event>
+    <line>([[:d:]]+) ([[:graph:]]+) e( +.*)?</line>
+    <timestamp>dec(1)</timestamp>
+    <name>txt(2)</name>
+</event>
+
 </signals >
+

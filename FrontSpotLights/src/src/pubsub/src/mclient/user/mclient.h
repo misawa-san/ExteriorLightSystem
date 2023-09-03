@@ -11,7 +11,8 @@ extern "C" {
 
 extern int mclient_init(void);
 extern int mclient_main(void);
-
+extern int mmap_dump(void);
+extern int mmap_dumpf(char valname[], long w_val);
 #endif
 
 #ifdef __cplusplus

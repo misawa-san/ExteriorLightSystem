@@ -3,10 +3,10 @@
 #include "FrontSpotLights.h"
 
 /* メイン周期 */
-#define MAIN_CYCLE  (uint32_t)(10UL)
+#define MAIN_CYCLE (uint32_t)(10UL)
 
-volatile uint8_t icnt1    = 0U;
-volatile uint8_t icnt2    = 0U;
+volatile uint8_t icnt1 = 0U;
+volatile uint8_t icnt2 = 0U;
 
 uint16_t test_tm = 0U;
 uint16_t per = 0U;
@@ -38,29 +38,39 @@ void FrontSpotLightsMain(void)
   /* 外部入力 */
 
   /* メイン処理 */
-  switch(payload[0]){
-    case 0x30:  /* 駐車灯・通過灯指示コマンド */
-      parkinglightreq = payload[1];
-      passinglightreq = payload[2];
-      break;
-    default:
-      break;
+  switch (payload[0])
+  {
+  case 0x30: /* 駐車灯・通過灯指示コマンド */
+    parkinglightreq = payload[1];
+    passinglightreq = payload[2];
+    break;
+  default:
+    break;
   }
   /* 外部出力 */
-  if( test_tm == 0U ){
-      test_tm = 200/MAIN_CYCLE;
+  if (test_tm == 0U)
+  {
+    test_tm = 200 / MAIN_CYCLE;
 
-      if(parkinglightreq>0){
-        icnt1=250;
-        icnt2=0;
-      }else if(passinglightreq>0){
-        icnt1=0;
-        icnt2=250;
-      }
-
-      analogWrite(PARKINGLIGHT, icnt1);
-      analogWrite(PASSINGLIGHT, icnt2);          
-  }else{
-      test_tm--;
+    mmap_dump();
+    if (parkinglightreq > 0)
+    {
+      icnt1 = 250;
+      icnt2 = 0;
+    }
+    else if (passinglightreq > 0)
+    {
+      icnt1 = 0;
+      icnt2 = 250;
+    }
+    mmap_dumpf("uint8_pwm_data.PARKINGLIGHT",  icnt1);
+    mmap_dumpf("sint16_pwm_data.PASSINGLIGHT", icnt2+1);
+    analogWrite(PARKINGLIGHT, icnt1);
+    analogWrite(PASSINGLIGHT, icnt2);
+    mmap_dump();
+  }
+  else
+  {
+    test_tm--;
   }
 }
