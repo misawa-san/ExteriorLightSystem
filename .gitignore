@@ -1,0 +1,15 @@
+FrontSpotLights/src/build
+FrontSpotLights/src/install
+FrontSpotLights/src/log
+FrontSpotLights/src/coverage*
+
+ExteriorLightController/src/build
+ExteriorLightController/src/install
+ExteriorLightController/src/log
+ExteriorLightController/src/coverage*
+
+robot/result
+robot/testsuites
+
+*.txt
+*.log
