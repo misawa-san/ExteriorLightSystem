@@ -4,6 +4,8 @@
 import time
 import json
 import requests
+from urllib3.util import Retry
+from requests.adapters import HTTPAdapter
 
 DPATH = '../../../testsuites/CheckLightSensor/d_CheckLightSensor/Data/'
 
@@ -48,7 +50,10 @@ class s_lib_sils_class():
             'req_time': str(self.req_time)  # req_time
         }
 
-        response = requests.put(url, params=url_params).json()
+        session = requests.Session()
+        retries = Retry(total=12, backoff_factor=15, status_forcelist=[500, 502, 503, 504])
+        session.mount("http://", HTTPAdapter(max_retries=retries))
+        response = session.put(url, params=url_params, timeout=(15, 30)).json()
 
         return response
 
@@ -71,7 +76,10 @@ class s_lib_sils_class():
             'req_time': str(self.req_time)  # req_time
         }
 
-        response = requests.get(url, params=url_params).json()
+        session = requests.Session()
+        retries = Retry(total=12, backoff_factor=15, status_forcelist=[500, 502, 503, 504])
+        session.mount("http://", HTTPAdapter(max_retries=retries))
+        response = session.get(url, params=url_params, timeout=(15, 30)).json()
 
         return response
 
@@ -90,7 +98,10 @@ class s_lib_sils_class():
             'req_time': str(time)           # req_time
         }
 
-        response = requests.put(url, params=url_params).json()
+        session = requests.Session()
+        retries = Retry(total=12, backoff_factor=15, status_forcelist=[500, 502, 503, 504])
+        session.mount("http://", HTTPAdapter(max_retries=retries))
+        response = session.put(url, params=url_params, timeout=(15, 30)).json()
 
         return response
 
