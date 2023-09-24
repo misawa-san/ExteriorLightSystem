@@ -5,6 +5,9 @@ RUN apt-get update \
     && apt-get install -y jq \
     && pip install robotframework \
     && pip install requests \
+    && pip install retrying \
+    && pip install Retry \
+    && pip install http-adapter \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && useradd -m github \
