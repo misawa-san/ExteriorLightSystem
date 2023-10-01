@@ -101,7 +101,7 @@ EOF
             kill "$timeout_pid"
             kill "$inotify_pid"
             rm -rf /tmp/self_pid
-            exit
+            exit 1
         fi
     fi
 
@@ -123,7 +123,7 @@ EOF
             kill "$timeout_pid"
             kill "$inotify_pid"
             rm -rf /tmp/self_pid
-            exit
+            exit 1
         fi
     fi
 
