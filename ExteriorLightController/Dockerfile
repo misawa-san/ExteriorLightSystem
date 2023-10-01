@@ -47,6 +47,11 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
 WORKDIR /usr/ecu_src/ExteriorLightController
 COPY ./ /usr/ecu_src/ExteriorLightController
+RUN groupadd sils
+RUN useradd -m -g sils sils
+RUN chown -R sils:sils /usr/ecu_src/ExteriorLightController
+USER sils
+
 RUN ["chmod", "+x", "./entrypoints/docker-entrypoint.sh"]
 ENTRYPOINT [ "./entrypoints/docker-entrypoint.sh" ]
 
