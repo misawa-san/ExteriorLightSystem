@@ -127,9 +127,6 @@ EOF
         fi
     fi
 
-    sleep 3
-    echo; docker ps
-    sleep 3
     echo; docker ps
 
 done
