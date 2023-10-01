@@ -15,7 +15,12 @@ for source_file in "$source_dir"/*.py; do
 
         # コマンドを実行
         ./run-single.sh
-
+        result=$?
+        if [ "$result" -eq 0 ]; then
+            echo
+        else
+            exit 1
+        fi
     fi
 done
 
