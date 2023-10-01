@@ -68,19 +68,25 @@ int mclient_init(void)
         if (err == EEXIST)
         {
             printf("memory exist for this key\n");
+            fflush(stdout);
         }
 
-        ShmID = shmget(ShmKEY, sizeof(U_Memory), 0666);
+        if (shmctl(ShmID, IPC_RMID, NULL) == -1) {
+            perror("shmctl");
+        }
+
         ret = -1;
     }
-
-    /* attach shared memory */
-    ShmPTR = (U_Memory *)shmat(ShmID, NULL, 0);
-    if ((long)ShmPTR == -1)
+    else
     {
-        printf("***     shmat error (server) ***\n");
-        fflush(stdout);
-        ret = -1;
+        /* attach shared memory */
+        ShmPTR = (U_Memory *)shmat(ShmID, NULL, 0);
+        if ((long)ShmPTR == -1)
+        {
+            printf("***     shmat error (server) ***\n");
+            fflush(stdout);
+            ret = -1;
+        }
     }
 
     /* If Shared Memory normally created */
