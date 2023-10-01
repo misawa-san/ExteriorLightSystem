@@ -54,5 +54,10 @@ RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
 WORKDIR /usr/ecu_src/FrontSpotLights
 COPY ./ /usr/ecu_src/FrontSpotLights
+RUN groupadd sils
+RUN useradd -m -g sils sils
+RUN chown -R sils:sils /usr/ecu_src/FrontSpotLights
+USER sils
+
 RUN ["chmod", "+x", "./entrypoints/docker-entrypoint.sh"]
 ENTRYPOINT [ "./entrypoints/docker-entrypoint.sh" ]
