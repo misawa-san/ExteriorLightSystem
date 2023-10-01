@@ -14,7 +14,8 @@ jobs:
       - name: Checkout And Build And Test
         run: |
           sudo chmod -R 777 .
-          ./run-multi.sh
+          ls -al
+          run-single.sh
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
