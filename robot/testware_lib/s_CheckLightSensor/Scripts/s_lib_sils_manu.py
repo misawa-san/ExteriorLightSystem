@@ -50,10 +50,7 @@ class s_lib_sils_class():
             'req_time': str(self.req_time)  # req_time
         }
 
-        session = requests.Session()
-        retries = Retry(total=12, backoff_factor=15, status_forcelist=[500, 502, 503, 504])
-        session.mount("http://", HTTPAdapter(max_retries=retries))
-        response = session.put(url, params=url_params, timeout=(15, 30)).json()
+        response = requests.put(url, params=url_params).json()
 
         return response
 
@@ -76,10 +73,7 @@ class s_lib_sils_class():
             'req_time': str(self.req_time)  # req_time
         }
 
-        session = requests.Session()
-        retries = Retry(total=12, backoff_factor=15, status_forcelist=[500, 502, 503, 504])
-        session.mount("http://", HTTPAdapter(max_retries=retries))
-        response = session.get(url, params=url_params, timeout=(15, 30)).json()
+        response = requests.get(url, params=url_params).json()
 
         return response
 
@@ -98,10 +92,7 @@ class s_lib_sils_class():
             'req_time': str(time)           # req_time
         }
 
-        session = requests.Session()
-        retries = Retry(total=12, backoff_factor=15, status_forcelist=[500, 502, 503, 504])
-        session.mount("http://", HTTPAdapter(max_retries=retries))
-        response = session.put(url, params=url_params, timeout=(15, 30)).json()
+        response = requests.put(url, params=url_params).json()
 
         return response
 

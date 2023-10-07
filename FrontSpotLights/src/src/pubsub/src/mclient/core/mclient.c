@@ -61,23 +61,26 @@ int mclient_init(void)
     ShmID = shmget(ShmKEY, sizeof(U_Memory), IPC_CREAT | IPC_EXCL | 0666);
     if (ShmID < 0)
     {
-        /* for case of error does not return a valid shmid */
-        err = errno;
-        printf("Error getting shared memory id %d %d\n", ShmID, err);
-        fflush(stdout);
-        if (err == EEXIST)
+        ShmID = shmget(ShmKEY, sizeof(U_Memory), 0666);
+        if (ShmID < 0)
         {
-            printf("memory exist for this key\n");
+            /* for case of error does not return a valid shmid */
+            err = errno;
+            printf("Error getting shared memory id %d %d\n", ShmID, err);
             fflush(stdout);
-        }
+            if (err == EEXIST)
+            {
+                printf("memory exist for this key\n");
+                fflush(stdout);
+            }
 
-        if (shmctl(ShmID, IPC_RMID, NULL) == -1) {
-            perror("shmctl");
+            if (shmctl(ShmID, IPC_RMID, NULL) == -1) {
+                perror("shmctl");
+            }
+            ret = -1;
         }
-
-        ret = -1;
     }
-    else
+    if(!ret)
     {
         /* attach shared memory */
         ShmPTR = (U_Memory *)shmat(ShmID, NULL, 0);
@@ -98,14 +101,14 @@ int mclient_init(void)
             ShmPTR->d[i] = 0;
         }
 
-        // printf( "Call the InitFunction\n" );
-        fflush(stdout);
-        mclient_initcallout();
-
         for (int i = 2; i < (sizeof(val_list) / sizeof(val_list[0])); i++)
         {
             printf(",%s", val_list[i].name);
         }
+
+        // printf( "Call the InitFunction\n" );
+        fflush(stdout);
+        mclient_initcallout();
     }
 
     return ret;
