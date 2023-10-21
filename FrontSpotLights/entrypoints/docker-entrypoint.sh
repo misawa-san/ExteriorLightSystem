@@ -15,10 +15,9 @@ rm -rf sanitizerlog.txt
 
 # launch server
 python3 -u ../server2.py > server.txt &
-cat ../server2.py
 
 colcon build --cmake-clean-cache
-export ASAN_OPTIONS="verbosity=2"
+export ASAN_OPTIONS="verbosity=2 new_delete_type_mismatch=0"
 colcon build --cmake-args -DCMAKE_CXX_FLAGS="-g -O0 -fsanitize=address -fno-omit-frame-pointer"
 #colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
 colcon build --symlink-install
