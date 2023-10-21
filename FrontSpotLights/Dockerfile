@@ -1,7 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV ROS_DISTRO dashing
+ENV ROS_DISTRO humble
 
 # Set locale
 RUN apt-get update && apt-get install -y locales && \
@@ -28,7 +28,7 @@ RUN apt-get update && \
     sudo apt-get install -y python3-pip && \
     pip3 install gcovr && \
     pip3 install -U argcomplete && \
-    pip3 install flask==1.1.1 && \
+    pip3 install flask==2.3.2 && \
     pip3 install requests && \
     sudo pip3 install sysv_ipc
 
@@ -40,10 +40,9 @@ RUN apt-get update && \
     apt-get update
 
 # Install ROS 2 packages
-RUN export ROS_DISTRO=dashing && \
-    apt-get install -y ros-$ROS_DISTRO-desktop \
+RUN apt-get install -y ros-$ROS_DISTRO-desktop \
     sudo python3-colcon-common-extensions python3-rosdep python3-argcomplete && \
-    sudo apt install -y ros-dashing-launch* && \
+    apt-get install -y ros-$ROS_DISTRO-launch* && \
     apt-get install -y ros-$ROS_DISTRO-osrf-testing-tools-cpp && \
     apt-get install -y ros-$ROS_DISTRO-test-msgs && \
     rosdep init && \
@@ -52,12 +51,13 @@ RUN export ROS_DISTRO=dashing && \
 ## 環境設定
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 
-WORKDIR /usr/ecu_src/FrontSpotLights
-COPY ./ /usr/ecu_src/FrontSpotLights
+WORKDIR /usr/ecu_src/ExteriorLightController
+COPY ./ /usr/ecu_src/ExteriorLightController
 RUN groupadd sils
 RUN useradd -m -g sils sils
-RUN chown -R sils:sils /usr/ecu_src/FrontSpotLights
+RUN chown -R sils:sils /usr/ecu_src/ExteriorLightController
 USER sils
 
 RUN ["chmod", "+x", "./entrypoints/docker-entrypoint.sh"]
 ENTRYPOINT [ "./entrypoints/docker-entrypoint.sh" ]
+
