@@ -41,7 +41,7 @@ add_executable(ros_task
 target_compile_options(ros_task PUBLIC -coverage -g -fsanitize=address -fno-omit-frame-pointer)
 
 # Linker Flags
-set(ld_flags "-lasan -coverage")
+set(ld_flags "-fsanitize=address -coverage")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${ld_flags}")
 
 target_link_libraries(ros_task libapp)
