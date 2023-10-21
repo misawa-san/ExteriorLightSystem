@@ -1,4 +1,4 @@
-From python:3.8-buster
+FROM ubuntu:22.04
 
 RUN apt-get update \
     && apt-get install -y sudo \
@@ -16,5 +16,10 @@ RUN apt-get update \
 
 WORKDIR /usr/ecu_src/robot
 COPY ./ /usr/ecu_src/robot
+RUN groupadd sils
+RUN useradd -m -g sils sils
+RUN chown -R sils:sils /usr/ecu_src/robot
+USER sils
+
 RUN ["chmod", "+x", "./entrypoints/docker-entrypoint.sh"]
 ENTRYPOINT [ "./entrypoints/docker-entrypoint.sh" ]
