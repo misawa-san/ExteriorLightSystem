@@ -8,7 +8,7 @@ docker compose -f docker-compose.yml up -d --build
 monitor_dir="./FrontSpotLights/src"
 
 # タイムアウトの秒数
-timeout_seconds=180
+timeout_seconds=18000
 
 # タイムアウト時のメッセージ
 timeout_message="timeout occured. check your source code"
