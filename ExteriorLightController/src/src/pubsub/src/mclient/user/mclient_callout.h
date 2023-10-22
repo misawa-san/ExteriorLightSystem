@@ -3,6 +3,7 @@
 
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
 #define MAIN_CYCLE  (0.01)	/* 10ms cycle   */
+#define MMAP_DUMP_CYCLE (0.000001)  /* 1us cycle */
 /* ------------------ USER CUSTOIMIZE ----------------------------*/
 
 extern void mclient_initcallout(void);
