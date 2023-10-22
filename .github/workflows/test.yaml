@@ -16,7 +16,7 @@ jobs:
           sudo apt-get install -y inotify-tools
           sudo chmod -R 777 .
           ls -al
-          bash ./run-single.sh
+          ./run-single.sh
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
