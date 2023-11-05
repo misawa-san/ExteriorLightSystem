@@ -13,6 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Checkout And Build And Test
         run: |
+          docker pull ubuntu:22.04
           sudo apt-get install -y inotify-tools
           sudo chmod -R 777 .
           ls -al
