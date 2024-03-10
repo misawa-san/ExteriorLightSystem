@@ -8,7 +8,7 @@ services:
       - ./ExteriorLightController/.env
     hostname: exte_c
     ports:
-      - ${IP}:8086:${PORT}
+      - 0.0.0.0:8086:${PORT}
     volumes:
       - ./ExteriorLightController:/usr/ecu_src/ExteriorLightController
 
@@ -20,7 +20,7 @@ services:
       - ./FrontSpotLights/.env
     hostname: fsl_c
     ports:
-      - ${IP}:8087:${PORT}
+      - 0.0.0.0:8087:${PORT}
     volumes:
       - ./FrontSpotLights:/usr/ecu_src/FrontSpotLights
 
@@ -36,6 +36,6 @@ services:
       - ./robot/.env
     hostname: robotf
     ports:
-      - ${IP}:8088:${PORT}
+      - 0.0.0.0:8088:${PORT}
     volumes:
       - ./robot:/usr/ecu_src/robot

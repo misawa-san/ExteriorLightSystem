@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     rclcpp::spin(std::make_shared<RosTask>());
     rclcpp::shutdown();
 
-    printf("\n");
+    //printf("\n");
     //printf("finish mclient_main()\n");
     fflush(stdout);
 

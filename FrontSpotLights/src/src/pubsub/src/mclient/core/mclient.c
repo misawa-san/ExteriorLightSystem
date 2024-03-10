@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <errno.h>
@@ -36,6 +36,7 @@ int ShmID = 0;
 int fin = 0;
 double res_ecu_time = 0;
 double res_ecu_time_pre = 0;
+FILE *logfile;
 
 static void p_mem(void);
 static void p_mem2(void);
@@ -54,6 +55,8 @@ int mclient_init(void)
     int ret = 0;
 
     res_ecu_time = 0;
+
+    logfile = fopen("publog.txt", "w");
 
     // printf("hello envci world! 20230611\n");
     fflush(stdout);
@@ -103,7 +106,8 @@ int mclient_init(void)
 
         for (int i = 2; i < (sizeof(val_list) / sizeof(val_list[0])); i++)
         {
-            printf(",%s", val_list[i].name);
+            //printf(",%s", val_list[i].name);
+            fprintf(logfile, ",%s", val_list[i].name);
         }
 
         // printf( "Call the InitFunction\n" );
@@ -241,13 +245,26 @@ int mmap_dumpf(char valname[], long w_val)
 static void p_mem2(void)
 {
     int ret = 0;
+    char ncstr[128];
+    char valstr[16]; /* 32bitの最大は10進数10桁なので16文字で十分収まる */
+    char timestr[256];
 
-    printf("\n%f", res_ecu_time);
+    //printf("\n%f", res_ecu_time);
+    fprintf(logfile, "\n%f", res_ecu_time);
     for (int i = 2; i < (sizeof(val_list) / sizeof(val_list[0])); i++)
     {
         long temp;
         temp = read_val(i, &ret);
-        printf(",%ld", temp);
+        //printf(",%ld", temp);
+        fprintf(logfile, ",%ld", temp);
+
+        sprintf(timestr, "%ld", (unsigned long)(res_ecu_time*1000));    // res_ecu_timeを整数にして文字列に変換
+        snprintf(valstr, sizeof(valstr), "%ld", temp);                  // tempを文字列に変換
+
+        // ncコマンドでコンテナホストIPアドレス＝10.0.2.15、ポート番号=47269にUDFパケットを投げるコマンドをncstrに代入している
+        sprintf(ncstr, "%s%s%s%s%s%s%s", "echo '", val_list[i].name, ":", timestr, ":", valstr, "|xy'| nc -u -w0 10.0.2.15 47269");
+        //sprintf(ncstr, "%s%s%s%s%s%s%s", "echo '", "hoge3", ":", "2145", ":", "2600", "|xy'| nc -u -w0 10.0.2.15 47269");
+        system(ncstr);
     }
     fflush(stdout);
 }

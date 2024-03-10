@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  exteriorlightcontroller:
+    container_name: exte_c
+    build:
+      context: ./ExteriorLightController
+    env_file:
+      - ./ExteriorLightController/.env
+    hostname: exte_c
+    ports:
+      - 0.0.0.0:8086:${PORT}
+    volumes:
+      - ./ExteriorLightController:/usr/ecu_src/ExteriorLightController
+
+  frontspotlights:
+    container_name: fsl_c
+    build:
+      context: ./FrontSpotLights
+      dockerfile: Dockerfile_fast
+    env_file:
+      - ./FrontSpotLights/.env
+    hostname: fsl_c
+    ports:
+      - 0.0.0.0:8087:${PORT}
+    volumes:
+      - ./FrontSpotLights:/usr/ecu_src/FrontSpotLights
+
+  robotframework:
+    container_name: robotf
+    tty: true
+    depends_on:
+      - exteriorlightcontroller
+      - frontspotlights
+    build:
+      context: ./robot
+    env_file:
+      - ./robot/.env
+    hostname: robotf
+    ports:
+      - 0.0.0.0:8088:${PORT}
+    volumes:
+      - ./robot:/usr/ecu_src/robot

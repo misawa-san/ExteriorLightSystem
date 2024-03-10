@@ -25,6 +25,7 @@ RUN apt-get update && \
     apt-get install -y gdb && \
     apt-get install -y iputils-ping && \
     apt-get install -y net-tools && \
+    apt-get install -y netcat && \
     sudo apt-get install -y python3-pip && \
     pip3 install gcovr && \
     pip3 install -U argcomplete && \
