@@ -15,6 +15,7 @@ jobs:
         run: |
           docker pull ubuntu:22.04
           sudo apt-get install -y inotify-tools
+          sudo apt-get install -y vcdmaker
           sudo chmod -R 777 .
           ls -al
           ./run-single.sh
