@@ -1,6 +1,5 @@
-FROM ubuntu:22.04
+FROM ros:humble
 ENV DEBIAN_FRONTEND noninteractive
-
 ENV ROS_DISTRO humble
 
 # Set locale
@@ -8,6 +7,7 @@ RUN apt-get update && apt-get install -y locales && \
     dpkg-reconfigure locales && \
     locale-gen ja_JP ja_JP.UTF-8 && \
     update-locale LC_ALL=ja_JP.UTF-8 LANG=ja_JP.UTF-8
+
 ENV LC_ALL   ja_JP.UTF-8
 ENV LANG     ja_JP.UTF-8
 ENV LANGUAGE ja_JP.UTF-8
@@ -33,32 +33,24 @@ RUN apt-get update && \
     pip3 install requests && \
     sudo pip3 install sysv_ipc
 
-RUN apt-get update && \
-    apt-get install -y curl gnupg2 lsb-release && \
-    curl http://repo.ros2.org/repos.key | apt-key add - && \
-    sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu \
-    `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list' && \
-    apt-get update
-
 # Install ROS 2 packages
-RUN apt-get install -y ros-$ROS_DISTRO-desktop \
-    sudo python3-colcon-common-extensions python3-rosdep python3-argcomplete && \
-    apt-get install -y ros-$ROS_DISTRO-launch* && \
-    apt-get install -y ros-$ROS_DISTRO-osrf-testing-tools-cpp && \
-    apt-get install -y ros-$ROS_DISTRO-test-msgs && \
-    rosdep init && \
-    rosdep update
+RUN apt-get update && \
+    apt-get install -y \
+        python3-colcon-common-extensions \
+        python3-argcomplete \
+        ros-$ROS_DISTRO-example-interfaces \
+        ros-$ROS_DISTRO-launch* \
+        ros-$ROS_DISTRO-osrf-testing-tools-cpp \
+        ros-$ROS_DISTRO-test-msgs && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ## 環境設定
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
-
 WORKDIR /usr/ecu_src/FrontSpotLights
 COPY ./ /usr/ecu_src/FrontSpotLights
 RUN groupadd sils
 RUN useradd -m -g sils sils
 RUN chown -R sils:sils /usr/ecu_src/FrontSpotLights
 USER sils
-
 RUN ["chmod", "+x", "./entrypoints/docker-entrypoint.sh"]
 ENTRYPOINT [ "./entrypoints/docker-entrypoint.sh" ]
-
