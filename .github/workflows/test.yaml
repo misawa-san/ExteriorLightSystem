@@ -15,7 +15,8 @@ jobs:
         run: |
           docker pull ubuntu:22.04
           sudo apt-get install -y inotify-tools
-          sudo apt-get install -y vcdmaker
+          curl -OL https://github.com/WojciechRynczuk/vcdMaker/releases/download/v3.0.2/vcdMaker-3.0.2-amd64.deb
+          sudo apt-get install ./vcdMaker-3.0.2-amd64.deb
           sudo chmod -R 777 .
           ls -al
           ./run-single.sh
