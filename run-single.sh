@@ -61,7 +61,7 @@ while true; do
         while true; do
             if [ -f ./simout.csv ]; then
                 python3 -u ../../../Timeseries2VCDMakerInput/csvConv/src/csvConv.py ./simout.csv
-                vcdMaker -t us -o ./output.vcd -u ../../../Timeseries2VCDMakerInput/mysample/simout.xml ./output_simout.csv
+                vcdMaker -t us -o ./output.vcd -u ../../../Timeseries2VCDMakerInput/mysample/simout.xml ./simout.csv
                 mkdir ../"$file"-1
                 cp ./output.vcd ../"$file"-1
 
